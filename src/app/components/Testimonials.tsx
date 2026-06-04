@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
+const GAP_PX = 24;
+
 const testimonials = [
   {
     name: "Adebayo Johnson",
@@ -51,11 +53,12 @@ const testimonials = [
 
 export function Testimonials() {
   const ref = useRef(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [viewportWidth, setViewportWidth] = useState(0);
 
-  // Handle responsive items per page
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -72,7 +75,30 @@ export function Testimonials() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    const update = () => setViewportWidth(el.offsetWidth);
+    update();
+
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const maxIndex = Math.max(0, testimonials.length - itemsPerPage);
+
+  useEffect(() => {
+    setCurrentIndex((prev) => Math.min(prev, maxIndex));
+  }, [maxIndex]);
+
+  const slideWidth =
+    viewportWidth > 0
+      ? (viewportWidth - (itemsPerPage - 1) * GAP_PX) / itemsPerPage
+      : 0;
+
+  const stepPx = slideWidth + GAP_PX;
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -82,14 +108,8 @@ export function Testimonials() {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
 
-  const getCardWidth = () => {
-    const gapSize = 24; // gap-6 = 24px
-    return `calc(${100 / itemsPerPage}% - ${((itemsPerPage - 1) * gapSize) / itemsPerPage}px)`;
-  };
-
   return (
     <section ref={ref} className="py-16 sm:py-24 bg-black relative overflow-hidden">
-      {/* Background Decoration */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#FFD700]/5 rounded-full blur-3xl"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -107,44 +127,41 @@ export function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Testimonials Grid */}
         <div className="relative">
-          <div className="overflow-hidden">
+          <div ref={viewportRef} className="w-full overflow-hidden">
             <motion.div
-              className="flex gap-6"
-              animate={{ x: `-${currentIndex * (100 / itemsPerPage)}%` }}
+              className="flex"
+              style={{ gap: GAP_PX }}
+              animate={{ x: slideWidth > 0 ? -currentIndex * stepPx : 0 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={index}
-                  className="flex-shrink-0"
-                  style={{ width: getCardWidth() }}
+                  className="shrink-0"
+                  style={{ width: slideWidth > 0 ? slideWidth : "100%" }}
                   initial={{ opacity: 0, y: 50 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-8 h-full hover:border-[#FFD700]/50 transition-all duration-300">
-                    {/* Quote Icon */}
-                    <Quote className="text-[#FFD700] mb-6" size={40} />
+                  <Card className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-8 h-full hover:border-[#FFD700]/50 transition-all duration-300 overflow-hidden">
+                    <Quote className="text-[#FFD700] mb-6 shrink-0" size={40} />
 
-                    {/* Quote Text */}
-                    <p className="text-gray-300 leading-relaxed mb-6 italic">
-                      "{testimonial.quote}"
+                    <p className="text-gray-300 leading-relaxed mb-6 italic break-words">
+                      &ldquo;{testimonial.quote}&rdquo;
                     </p>
 
-                    {/* Author */}
-                    <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                    <div className="flex items-center gap-4 border-t border-white/10 pt-6 min-w-0">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-[#FFD700]"
+                        className="w-14 h-14 shrink-0 rounded-full object-cover border-2 border-[#FFD700]"
                       />
-                      <div>
-                        <h4 className="text-white">
+                      <div className="min-w-0">
+                        <h4 className="text-white truncate">
                           {testimonial.name}
                         </h4>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-gray-400 break-words">
                           {testimonial.role}
                         </p>
                       </div>
@@ -155,7 +172,6 @@ export function Testimonials() {
             </motion.div>
           </div>
 
-          {/* Navigation Buttons */}
           <div className="flex justify-center gap-4 mt-12">
             <motion.button
               onClick={handlePrev}
@@ -178,7 +194,6 @@ export function Testimonials() {
             </motion.button>
           </div>
 
-          {/* Dots Indicator */}
           <div className="flex justify-center gap-2 mt-6">
             {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <button
