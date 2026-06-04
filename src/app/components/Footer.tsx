@@ -1,12 +1,7 @@
 import { motion } from "motion/react";
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Mail,
-} from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail } from "lucide-react";
 import { Logo } from "./Logo";
+import { XIcon } from "./icons/XIcon";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -30,7 +25,7 @@ export function Footer() {
 
   const socialLinks = [
     { Icon: Facebook, href: "#", label: "Facebook" },
-    { Icon: Twitter, href: "#", label: "Twitter" },
+    { Icon: XIcon, href: "#", label: "X" },
     { Icon: Instagram, href: "#", label: "Instagram" },
     { Icon: Linkedin, href: "#", label: "LinkedIn" },
   ];
