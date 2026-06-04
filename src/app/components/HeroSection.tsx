@@ -57,7 +57,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Everything Learning Can Be.
+            work smart
           </motion.h1>
         </motion.div>
 
