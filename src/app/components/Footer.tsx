@@ -39,7 +39,7 @@ export function Footer() {
   return (
     <footer className="bg-black border-t border-[#FFD700]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-2">
             <motion.div
@@ -64,6 +64,8 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Link columns: 3-up on mobile to match the desktop layout */}
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 lg:col-span-3">
           {/* Programs */}
           <div>
             <h4 className="text-white mb-4 border-b border-[#FFD700]/20 pb-2">
@@ -119,6 +121,7 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
           </div>
         </div>
 
