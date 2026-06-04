@@ -23,7 +23,6 @@ export function Footer() {
       { name: "Careers", href: "#" },
     ],
     resources: [
-      { name: "Blog", href: "#" },
       { name: "Success Stories", href: "#" },
       { name: "FAQs", href: "#" },
     ],
