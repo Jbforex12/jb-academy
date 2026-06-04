@@ -21,6 +21,7 @@ export function Navbar() {
     { name: "Programs", href: "#programs" },
     { name: "Why Choose Us", href: "#why" },
     { name: "Testimonials", href: "#testimonials" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (

@@ -10,6 +10,7 @@ import { Statistics } from "./components/Statistics";
 import { FutureVision } from "./components/FutureVision";
 import { Testimonials } from "./components/Testimonials";
 import { CTASection } from "./components/CTASection";
+import { ContactSection } from "./components/ContactSection";
 import { Footer } from "./components/Footer";
 import { SectionTransition } from "./components/SectionTransition";
 
@@ -41,6 +42,7 @@ function App() {
           <Testimonials />
         </div>
         <CTASection />
+        <ContactSection />
         <Footer />
         <ScrollToTop />
       </div>

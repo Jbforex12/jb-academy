@@ -52,8 +52,8 @@ export function Footer() {
 
             <div className="flex items-center gap-2 text-gray-400 hover:text-[#FFD700] transition-colors">
               <Mail size={18} />
-              <a href="mailto:info@jbacademyltd.org" className="text-sm">
-                info@jbacademyltd.org
+              <a href="mailto:info@jbacademy.ltd" className="text-sm">
+                info@jbacademy.ltd
               </a>
             </div>
           </div>
