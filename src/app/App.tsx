@@ -12,7 +12,6 @@ import { Testimonials } from "./components/Testimonials";
 import { CTASection } from "./components/CTASection";
 import { ContactSection } from "./components/ContactSection";
 import { Footer } from "./components/Footer";
-import { SectionTransition } from "./components/SectionTransition";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,14 +28,11 @@ function App() {
         <div id="programs">
           <ProgramsSection />
         </div>
-        <SectionTransition from="#f9fafb" to="#000000" />
         <div id="why">
           <WhyChoose />
         </div>
-        <SectionTransition from="#000000" to="#ffffff" />
         <Statistics />
         <FutureVision />
-        <SectionTransition from="#f9fafb" to="#000000" />
         <div id="testimonials">
           <Testimonials />
         </div>
