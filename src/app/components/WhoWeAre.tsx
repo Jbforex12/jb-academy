@@ -8,7 +8,7 @@ export function WhoWeAre() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="py-16 sm:py-24 bg-white">
+    <section ref={ref} className="pt-24 sm:pt-32 pb-16 sm:pb-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Text */}

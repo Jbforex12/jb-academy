@@ -23,7 +23,7 @@ function App() {
       <div className="min-h-screen bg-white">
         <Navbar />
         <HeroSection />
-        <SectionTransition from="#000000" to="#ffffff" />
+        <SectionTransition variant="hero-light" from="#1e293b" to="#ffffff" />
         <div id="about">
           <WhoWeAre />
         </div>

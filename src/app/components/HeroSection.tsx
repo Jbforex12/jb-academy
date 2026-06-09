@@ -19,7 +19,7 @@ export function HeroSection() {
           alt="Students learning"
           className="w-full h-full object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#1e293b]"></div>
       </div>
 
       {/* Floating Educational Icons */}

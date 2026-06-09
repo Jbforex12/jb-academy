@@ -5,12 +5,41 @@ type SectionTransitionProps = {
   from: string;
   /** CSS color at the bottom of the band (should match the section below). */
   to: string;
+  /** Softer hero → light section handoff (navy fade + gold divider). */
+  variant?: "default" | "hero-light";
 };
 
 /**
- * Thin blend between sections with a single animated gold line (traveling shimmer).
+ * Blends adjacent sections. Use `hero-light` between the dark hero and About.
  */
-export function SectionTransition({ from, to }: SectionTransitionProps) {
+export function SectionTransition({
+  from,
+  to,
+  variant = "default",
+}: SectionTransitionProps) {
+  if (variant === "hero-light") {
+    return (
+      <div
+        aria-hidden
+        className="relative h-14 sm:h-20 w-full overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, #1e293b 0%, #334155 20%, #94a3b8 48%, #e2e8f0 72%, #ffffff 100%)",
+        }}
+      >
+        <div className="absolute top-[42%] left-0 right-0">
+          <div
+            className="mx-auto h-px w-4/5 max-w-2xl"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, rgba(255,215,0,0.75), transparent)",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       aria-hidden
