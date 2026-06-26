@@ -9,6 +9,13 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Email images for Pathway Prep mailer (public/email/assets) — serve files, not SPA
+[[redirects]]
+  from = "/email/assets/*"
+  to = "/email/assets/:splat"
+  status = 200
+  force = false
+
 # SPA fallback so deep links resolve to the app entry
 [[redirects]]
   from = "/*"
